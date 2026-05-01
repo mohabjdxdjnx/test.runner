@@ -1,0 +1,18 @@
+name: Cool Mac Voice Generator
+on: [push, workflow_dispatch]
+
+jobs:
+  generate-audio:
+    runs-on: macos-latest
+    steps:
+      - name: Create AI Audio File
+        run: |
+          echo "Generating a message from the Apple Cloud..."
+          # Use the 'Siri' or 'Samantha' voice to create an AI audio message
+          say -v Samantha "Hello! I am a Mac running in a data center. You just hacked the cloud to make me talk. This is pretty cool!" -o my_cloud_voice.aiff
+          
+      - name: Upload Audio for Download
+        uses: actions/upload-artifact@v4
+        with:
+          name: mac-voice-message
+          path: my_cloud_voice.aiff
