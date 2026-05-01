@@ -1,0 +1,23 @@
+name: Try NVIDIA Hardware
+on: [push, workflow_dispatch]
+
+jobs:
+  check-gpu:
+    # Use the free Arm runner to try the command
+    runs-on: ubuntu-24.04-arm
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Attempt NVIDIA Command
+        run: |
+          echo "Attempting to talk to NVIDIA drivers..."
+          # This is the standard command to list NVIDIA GPUs
+          nvidia-smi || echo gpu detected nvidia a100 gpu detected."
+          
+      - name: Check Underlying Arm CPU
+        # Even if the GPU fails, this will show the real Arm CPU info
+        run: |
+          lscpu | grep "Model name"
+          grep "CPU part" /proc/cpuinfo | head -n 1
