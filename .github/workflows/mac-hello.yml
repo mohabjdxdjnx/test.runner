@@ -1,0 +1,19 @@
+name: Mac Cloud Run
+on: [push, workflow_dispatch]
+
+jobs:
+  say-hello-macos:
+    # Use 'macos-latest' for the newest available Mac (currently macOS 15 or 16)
+    runs-on: macos-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: System Info
+        run: |
+          echo "Hello from a Mac in the cloud!"
+          sw_vers
+          sysctl hw.model
+
+      - name: Check Xcode Version
+        run: xcodebuild -version
